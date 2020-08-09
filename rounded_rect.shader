@@ -6,8 +6,7 @@ float4 mainImage(VertData v_in) : TARGET
 {
     float4 output = image.Sample(textureSampler, v_in.uv);
     if(output.a < 0.5){
-        output.a = 0.0;
-        return output;
+        return float4(0.0,0.0,0.0,0.0);
     }
     int closedEdgeX = 0;
     if(image.Sample(textureSampler, v_in.uv + float2(corner_radius*uv_pixel_interval.x,0)).a < 0.5){
@@ -71,6 +70,5 @@ float4 mainImage(VertData v_in) : TARGET
             return output;
         }
     }
-    output.a = 0.0;
-    return output;
+    return float4(0.0,0.0,0.0,0.0);
 }
