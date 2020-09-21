@@ -26,7 +26,7 @@ float4 mainImage(VertData v_in) : TARGET
 	float2 uv = v_in.uv;
     
     //copy orig
-    float3 outCol = image.Sample(textureSampler, uv).rgb;
+    float4 outCol = image.Sample(textureSampler, uv);
     
     //randomly offset slices horizontally
     float maxOffset = AMT/2.0;
@@ -37,7 +37,7 @@ float4 mainImage(VertData v_in) : TARGET
         float2 uvOff = uv;
         uvOff.x += hOffset;
         if (insideRange(uv.y, sliceY, frac(sliceY+sliceH)) == 1.0 ){
-        	outCol = image.Sample(textureSampler, uvOff).rgb;
+        	outCol = image.Sample(textureSampler, uvOff);
         }
     }
     
@@ -56,5 +56,5 @@ float4 mainImage(VertData v_in) : TARGET
         outCol.b = image.Sample(textureSampler, uv + colOffset).b;  
     }
        
-	return float4(outCol,1.0);
+	return outCol;
 }
