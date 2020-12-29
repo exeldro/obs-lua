@@ -7,10 +7,10 @@ uniform float alpha_cut_off = 0.5;
 
 float4 mainImage(VertData v_in) : TARGET
 {
-    float4 output = image.Sample(textureSampler, v_in.uv);
+    float4 pixel = image.Sample(textureSampler, v_in.uv);
     int closedEdgeX = 0;
     int closedEdgeY = 0;
-    if(output.a < alpha_cut_off){
+    if(pixel.a < alpha_cut_off){
         return float4(1.0,0.0,0.0,0.0);
     }
     if(image.Sample(textureSampler, v_in.uv + float2(corner_radius*uv_pixel_interval.x,0)).a < alpha_cut_off){
@@ -24,7 +24,7 @@ float4 mainImage(VertData v_in) : TARGET
         closedEdgeY = -corner_radius;
     }
     if(closedEdgeX == 0 && closedEdgeY == 0){
-        return output;
+        return pixel;
     }
     if(closedEdgeX != 0){
         [loop] for(int x = 1;x<corner_radius;x++){
@@ -58,7 +58,7 @@ float4 mainImage(VertData v_in) : TARGET
             fade_color.a = border_alpha_end + ((float)closedEdgeYabs / (float)border_thickness)*(border_alpha_start-border_alpha_end);
             return fade_color;
         }else{
-            return output;
+            return pixel;
         }
     }
     if(closedEdgeY == 0){
@@ -67,7 +67,7 @@ float4 mainImage(VertData v_in) : TARGET
             fade_color.a = border_alpha_end + ((float)closedEdgeXabs / (float)border_thickness)*(border_alpha_start-border_alpha_end);
             return fade_color;
         }else{
-            return output;
+            return pixel;
         }
     }
 
@@ -78,7 +78,7 @@ float4 mainImage(VertData v_in) : TARGET
             fade_color.a = border_alpha_end + ((corner_radius-d)/ (float)border_thickness)*(border_alpha_start-border_alpha_end);
             return fade_color;
         }else{
-            return output;
+            return pixel;
         }
     }
     return float4(0.0,0.0,0.0,0.0);
