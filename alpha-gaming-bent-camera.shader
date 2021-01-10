@@ -18,9 +18,9 @@ float4 mainImage(VertData v_in) : TARGET
         pos.y -= 0.5;
         pos.y /= left_side_size;
         pos.y += 0.5;
-        pos.x -= left_side_width + left_flip_width / 2.0;
+        pos.x -= left_side_width + left_flip_width;
         pos.x /= left_side_size;
-        pos.x += left_side_width + left_flip_width / 2.0;
+        pos.x += left_side_width + left_flip_width;
         shadow = left_side_shadow;
     }else if(pos.x < left_side_width + left_flip_width){
         float factor = 1.0 - ((left_side_width + left_flip_width)-pos.x)/left_flip_width*(1.0 - left_side_size);
@@ -37,9 +37,9 @@ float4 mainImage(VertData v_in) : TARGET
         pos.y -= 0.5;
         pos.y /= right_side_size;
         pos.y += 0.5;
-        pos.x -= 1.0 - (right_side_width + right_flip_width / 2.0);
+        pos.x -= 1.0 - (right_side_width + right_flip_width);
         pos.x /= right_side_size;
-        pos.x += 1.0 - (right_side_width + right_flip_width / 2.0);
+        pos.x += 1.0 - (right_side_width + right_flip_width);
         shadow = right_side_shadow;
     }else if(1.0 - pos.x < right_side_width + right_flip_width){
         float factor = 1.0 - ((right_side_width + right_flip_width) - (1.0 - pos.x))/right_flip_width*(1.0 - right_side_size);
