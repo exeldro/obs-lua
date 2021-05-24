@@ -45,6 +45,7 @@ function script_tick(seconds)
                 local scene_source = obs.obs_get_source_by_name(scene_name)
                 if scene_source ~= nil then
                     obs.obs_frontend_set_current_scene(scene_source)
+                    obs.obs_source_release(scene_source)
                 end
             end
         end
