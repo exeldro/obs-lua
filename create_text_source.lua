@@ -7,18 +7,23 @@ function script_properties()
     obs.obs_properties_add_text(props, "source_name", "Source Name", obs.OBS_TEXT_DEFAULT)
     obs.obs_properties_add_font(props, "font", "Font")
     obs.obs_properties_add_color(props, "color", "Color")
-    local p = obs.obs_properties_add_list(props, "align", "Align", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
-    obs.obs_property_list_add_string(p, "Left", "left");
-	obs.obs_property_list_add_string(p, "Center", "center");
-	obs.obs_property_list_add_string(p, "Right", "right");
+    local p = obs.obs_properties_add_int_slider(props, "opacity", "Opacity", 0, 100, 1)
+	obs.obs_property_int_set_suffix(p, "%")
+    obs.obs_properties_add_color(props, "bk_color", "Background Color")
+    local p = obs.obs_properties_add_int_slider(props, "bk_opacity", "Background Opacity", 0, 100, 1)
+	obs.obs_property_int_set_suffix(p, "%")
+    p = obs.obs_properties_add_list(props, "align", "Align", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
+    obs.obs_property_list_add_string(p, "Left", "left")
+	obs.obs_property_list_add_string(p, "Center", "center")
+	obs.obs_property_list_add_string(p, "Right", "right")
     p = obs.obs_properties_add_list(props, "valign", "Vertical Align", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
-    obs.obs_property_list_add_string(p, "Top", "top");
-	obs.obs_property_list_add_string(p, "Center", "center");
-	obs.obs_property_list_add_string(p, "Bottom", "bottom");
+    obs.obs_property_list_add_string(p, "Top", "top")
+	obs.obs_property_list_add_string(p, "Center", "center")
+	obs.obs_property_list_add_string(p, "Bottom", "bottom")
     local extents = obs.obs_properties_create()
-    obs.obs_properties_add_int(extents, "extents_cx", "X", 32, 8000, 1);
-	obs.obs_properties_add_int(extents, "extents_cy", "Y", 32, 8000, 1);
-	obs.obs_properties_add_bool(extents, "extents_wrap", "Wrap");
+    obs.obs_properties_add_int(extents, "extents_cx", "X", 32, 8000, 1)
+	obs.obs_properties_add_int(extents, "extents_cy", "Y", 32, 8000, 1)
+	obs.obs_properties_add_bool(extents, "extents_wrap", "Wrap")
     obs.obs_properties_add_group(props,"extents", "Extents", obs.OBS_GROUP_CHECKABLE, extents)
     obs.obs_properties_add_text(props, "text", "Text", obs.OBS_TEXT_MULTILINE)
     return props
@@ -26,19 +31,22 @@ end
 
 function script_defaults(settings)
     local font = obs.obs_data_create()
-    obs.obs_data_set_default_string(font, "face", "Arial");
-	obs.obs_data_set_default_int(font, "size", 256);
-	obs.obs_data_set_default_obj(settings, "font", font);
+    obs.obs_data_set_default_string(font, "face", "Arial")
+	obs.obs_data_set_default_int(font, "size", 256)
+	obs.obs_data_set_default_obj(settings, "font", font)
     obs.obs_data_release(font)
 
     obs.obs_data_set_default_string(settings, "source_name", "Text")
     obs.obs_data_set_default_int(settings, "color", 0xFFFFFF)
+    obs.obs_data_set_default_int(settings, "opacity", 100)
+    obs.obs_data_set_default_int(settings, "bk_color", 0x000000)
+	obs.obs_data_set_default_int(settings, "bk_opacity", 0)
     obs.obs_data_set_default_string(settings, "align", "left")
     obs.obs_data_set_default_string(settings, "valign", "top")
 
-    obs.obs_data_set_default_bool(settings, "extents_wrap", true);
-	obs.obs_data_set_default_int(settings, "extents_cx", 100);
-	obs.obs_data_set_default_int(settings, "extents_cy", 100);
+    obs.obs_data_set_default_bool(settings, "extents_wrap", true)
+	obs.obs_data_set_default_int(settings, "extents_cx", 100)
+	obs.obs_data_set_default_int(settings, "extents_cy", 100)
 end
 
 function script_description()
