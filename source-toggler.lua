@@ -54,7 +54,9 @@ function script_update(settings)
             obs.signal_handler_connect(sh,"item_visible",item_visible)
             obs.obs_source_release(source)
         end
+        obs.obs_data_release(item)
     end
+    obs.obs_data_array_release(sourceNames)
 end
 
 function script_defaults(settings)
@@ -82,9 +84,9 @@ function loaded(cd)
             obs.signal_handler_disconnect(sh,"item_visible",item_visible)
             obs.signal_handler_connect(sh,"item_visible",item_visible)
         end
+        obs.obs_data_release(item)
     end
     obs.obs_data_array_release(sourceNames)
-
 end
 
 function script_load(settings)
