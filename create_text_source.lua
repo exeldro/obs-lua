@@ -12,6 +12,14 @@ function script_properties()
     obs.obs_properties_add_color(props, "bk_color", "Background Color")
     local p = obs.obs_properties_add_int_slider(props, "bk_opacity", "Background Opacity", 0, 100, 1)
 	obs.obs_property_int_set_suffix(p, "%")
+
+    local outline = obs.obs_properties_create()
+    obs.obs_properties_add_int(outline, "outline_size", "Size", 1, 20, 1);
+    obs.obs_properties_add_color(outline, "outline_color", "Color")
+    local p = obs.obs_properties_add_int_slider(outline, "outline_opacity", "Opacity", 0, 100, 1)
+	obs.obs_property_int_set_suffix(p, "%")
+    obs.obs_properties_add_group(props, "outline", "Outline", obs.OBS_GROUP_CHECKABLE, outline)
+
     p = obs.obs_properties_add_list(props, "align", "Align", obs.OBS_COMBO_TYPE_EDITABLE, obs.OBS_COMBO_FORMAT_STRING)
     obs.obs_property_list_add_string(p, "Left", "left")
 	obs.obs_property_list_add_string(p, "Center", "center")
@@ -24,7 +32,7 @@ function script_properties()
     obs.obs_properties_add_int(extents, "extents_cx", "X", 32, 8000, 1)
 	obs.obs_properties_add_int(extents, "extents_cy", "Y", 32, 8000, 1)
 	obs.obs_properties_add_bool(extents, "extents_wrap", "Wrap")
-    obs.obs_properties_add_group(props,"extents", "Extents", obs.OBS_GROUP_CHECKABLE, extents)
+    obs.obs_properties_add_group(props, "extents", "Extents", obs.OBS_GROUP_CHECKABLE, extents)
     obs.obs_properties_add_text(props, "text", "Text", obs.OBS_TEXT_MULTILINE)
     return props
 end
@@ -41,6 +49,9 @@ function script_defaults(settings)
     obs.obs_data_set_default_int(settings, "opacity", 100)
     obs.obs_data_set_default_int(settings, "bk_color", 0x000000)
 	obs.obs_data_set_default_int(settings, "bk_opacity", 0)
+    obs.obs_data_set_default_int(settings, "outline_size", 2);
+	obs.obs_data_set_default_int(settings, "outline_color", 0xFFFFFF);
+	obs.obs_data_set_default_int(settings, "outline_opacity", 100);
     obs.obs_data_set_default_string(settings, "align", "left")
     obs.obs_data_set_default_string(settings, "valign", "top")
 
