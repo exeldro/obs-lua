@@ -173,19 +173,21 @@ function loaded(cd)
     end
     local source = obs.calldata_source(cd, "source")
     local sn = obs.obs_source_get_name(source)
-
-    local sourceName = obs.obs_data_get_string(gs, "scene1")
-    if sn == sourceName then
-        local sh = obs.obs_source_get_signal_handler(source);
-        obs.signal_handler_disconnect(sh,"item_visible",item_visible)
-        obs.signal_handler_connect(sh,"item_visible",item_visible)
-    end
-
-    sourceName = obs.obs_data_get_string(gs, "scene2")
-    if sn == sourceName then
-        local sh = obs.obs_source_get_signal_handler(source);
-        obs.signal_handler_disconnect(sh,"item_visible",item_visible)
-        obs.signal_handler_connect(sh,"item_visible",item_visible)
+    
+    for i = 1, pair_count, 1 
+    do 
+        local sourceName = obs.obs_data_get_string(gs, "pair_"..i.."_scene_a")
+        if sn == sourceName then
+            local sh = obs.obs_source_get_signal_handler(source);
+            obs.signal_handler_disconnect(sh,"item_visible",item_visible)
+            obs.signal_handler_connect(sh,"item_visible",item_visible)
+        end
+        sourceName = obs.obs_data_get_string(gs, "pair_"..i.."_scene_b")
+        if sn == sourceName then
+            local sh = obs.obs_source_get_signal_handler(source);
+            obs.signal_handler_disconnect(sh,"item_visible",item_visible)
+            obs.signal_handler_connect(sh,"item_visible",item_visible)
+        end
     end
 end
 
