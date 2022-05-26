@@ -169,13 +169,26 @@ function script_properties()
 	return props
 end
 
+function loaded(cd)
+    if gs == nil then
+        return
+    end
+    local source = obs.calldata_source(cd, "source")
+    local source_id = obs.obs_source_get_id(source)
+    if source_id == "group" or source_id == "scene" then
+        local sh = obs.obs_source_get_signal_handler(source);
+        obs.signal_handler_disconnect(sh,"item_visible",item_visible)
+        obs.signal_handler_connect(sh,"item_visible",item_visible)
+    end
+end
+
 function script_load(settings)
     gs = settings
     script_update(settings)
     local sources = obs.obs_enum_sources()
     if sources ~= nil then
         for _, source in ipairs(sources) do
-            source_id = obs.obs_source_get_id(source)
+            local source_id = obs.obs_source_get_id(source)
             if source_id == "group" then
                 local sh = obs.obs_source_get_signal_handler(source);
                 obs.signal_handler_disconnect(sh,"item_visible",item_visible)
@@ -197,7 +210,8 @@ function script_load(settings)
             end
         end
     end
-
+    local sh = obs.obs_get_signal_handler()
+    obs.signal_handler_connect(sh, "source_load", loaded)
 end
 
 function script_unload()
