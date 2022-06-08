@@ -62,12 +62,14 @@ function import_export(export, update_link)
                             f:close()
                         end
                         local filewrite = io.open(file, "w")
-                        if string.len(fnotes) > 0 then
-                            filewrite:write(fnotes)
-                        elseif string.len(snotes) > 0 then
-                            filewrite:write(snotes)
+                        if filewrite ~= nil then
+                            if fnotes ~= nil and string.len(fnotes) > 0 then
+                                filewrite:write(fnotes)
+                            elseif snotes ~= nil and string.len(snotes) > 0 then
+                                filewrite:write(snotes)
+                            end
+                            filewrite:close()
                         end
-                        filewrite:close()
                         if update_link then
                             obs.obs_data_set_string(scene_settings, "notes_file", file)
                         end
