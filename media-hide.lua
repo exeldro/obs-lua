@@ -21,6 +21,7 @@ function source_enable(source, enable)
                             end
                         end
                     end
+		   obs.sceneitem_list_release(groupitems)			
                 end
                 if sourcename == obs.obs_source_get_name(obs.obs_sceneitem_get_source(sceneitem)) then
                     if obs.obs_sceneitem_visible(sceneitem) ~= enable then
