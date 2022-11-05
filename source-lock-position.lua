@@ -105,7 +105,10 @@ function LoadScene(scene, scene_source)
 end
 
 function script_tick()
-    local scene_source = obs.obs_frontend_get_current_scene()
+    local scene_source = obs.obs_frontend_get_current_preview_scene()
+    if scene_source == nil then
+        scene_source = obs.obs_frontend_get_current_scene()
+    end
     local sn = obs.obs_source_get_name(scene_source)
     if sn == current_scene then
         obs.obs_source_release(scene_source)
