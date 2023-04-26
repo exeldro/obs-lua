@@ -85,7 +85,16 @@ function create_text_source_trigger(pressed)
     end
 
     local settings = obs.obs_data_create_from_json(obs.obs_data_get_json(global_settings))
-    if os.getenv('OS'):lower():match('windows') then
+    local windows = false
+    if os ~= nil then
+        local os_name = os.getenv('OS')
+        if os_name ~= nil then 
+            if os_name:lower():match('windows') then
+                windows = true
+            end
+        end
+    end
+    if windows then
         source = obs.obs_source_create(obs.obs_get_latest_input_type_id("text_gdiplus"), source_name, settings, nil)
     else
         source = obs.obs_source_create(obs.obs_get_latest_input_type_id("text_ft2_source"), source_name, settings, nil)
