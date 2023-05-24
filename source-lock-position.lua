@@ -96,7 +96,7 @@ function LoadScene(scene, scene_source)
                 local scale = obs.vec2()
                 obs.obs_sceneitem_get_scale(item, scale)
                 local bounds = obs.vec2()
-                obs.obs_sceneitem_get_scale(item, bounds)
+                obs.obs_sceneitem_get_bounds(item, bounds)
                 items_to_restore[obs.obs_sceneitem_get_id(item)] = {pos = pos, scale = scale, bounds = bounds}
             end
         end
