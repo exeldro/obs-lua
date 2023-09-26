@@ -12,7 +12,6 @@ All shaders have moved to https://github.com/exeldro/obs-shaderfilter/tree/maste
 | [media-hide.lua](media-hide.lua)                             | Hide media sources when ended                                                             |
 | [media-switch-scene.lua](media-switch-scene.lua)             | Select a media source and a scene to switch to after playback                             |
 | [media-visibility-source.lua](media-visibility-source.lua)   | Select a media source to change visibility after playback                                 |
-| [move-sources.lua](move-sources.lua)                         | test                                                                                      |
 | [ptt-toggle-hotkey.lua](ptt-toggle-hotkey.lua)               | Adds hotkey to enable push to talk                                                        |
 | [refresh-browsers.lua](refresh-browsers.lua)                 | Adds hotkey to refresh all browser sources                                                |
 | [scene-notes-save.lua](scene-notes-save.lua)                 | save [scene notes](https://obsproject.com/forum/resources/scene-notes-dock.1398/) to html |
